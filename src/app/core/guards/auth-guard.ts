@@ -1,22 +1,21 @@
 import { inject } from '@angular/core';
-import { Router, CanActivateFn, ActivatedRouteSnapshot } from '@angular/router';
-import { Auth } from '../services/auth';
-
+import { CanActivateFn, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { UserService } from '../services/users/user-service';
 
 export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
-  const auth = inject(Auth);
+  const userService = inject(UserService);
   const router = inject(Router);
 
-  const isLoggedIn = auth.isLoggedIn();
+  const loggedIn = userService.isLoggedIn(); // signal
   const requestedRoute = route.routeConfig?.path;
 
-  // If user tries to access login page while logged in → redirect to dashboard
-  if (requestedRoute === 'login' && isLoggedIn) {
+  // Redirect logged-in users away from login page
+  if (requestedRoute === 'login' && loggedIn) {
     return router.parseUrl('/');
   }
 
-  // If user tries to access any protected page (dashboard) while not logged in → redirect to login
-  if (requestedRoute !== 'login' && !isLoggedIn) {
+  // Redirect not logged-in users away from protected pages
+  if (requestedRoute !== 'login' && !loggedIn) {
     return router.parseUrl('/login');
   }
 
