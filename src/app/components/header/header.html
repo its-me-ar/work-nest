@@ -1,0 +1,52 @@
+<!-- header.component.html -->
+<header class="bg-white border-b border-gray-200 px-4 lg:px-6 py-2">
+  <div class="flex items-center justify-between">
+    <!-- Mobile Menu Button -->
+    <button (click)="ui.toggleMobileMenu()" class="lg:hidden p-2 rounded hover:bg-gray-100">
+      <lucide-icon [img]="PanelRight" class="w-6 h-6 text-gray-600"></lucide-icon>
+    </button>
+
+    <!-- Search Bar -->
+    <div class="hidden md:flex items-center flex-1 max-w-xl mx-4">
+      <div class="relative w-full">
+        <input
+          type="text"
+          placeholder="Search or type a command"
+          class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <lucide-icon
+          [img]="SearchIcon"
+          class="w-5 h-5 text-gray-400 absolute left-1 top-1/2 transform -translate-y-1/2 mr-5"
+        ></lucide-icon>
+      </div>
+    </div>
+
+    <!-- Header Actions -->
+    <div class="flex items-center gap-3">
+      <button class="p-2 rounded-lg hover:bg-gray-100 relative">
+        <lucide-icon [img]="BellIcon" class="w-6 h-6 text-gray-600"></lucide-icon>
+        <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+      </button>
+      <img
+        src="https://i.pravatar.cc/100"
+        alt="User"
+        class="w-10 h-10 rounded-full border-2 border-gray-200 cursor-pointer"
+      />
+    </div>
+  </div>
+
+  <!-- Mobile Search -->
+  <div class="md:hidden mt-3">
+    <div class="relative">
+      <input
+        type="text"
+        placeholder="Search..."
+        class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+     <lucide-icon
+        [img]="SearchIcon"
+        class="w-5 h-5 text-gray-400 absolute left-1 top-1/2 transform -translate-y-1/2"
+      ></lucide-icon>
+    </div>
+  </div>
+</header>
