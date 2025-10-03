@@ -6,8 +6,11 @@ export const routes: Routes = [
     path: '',
     canActivate: [authGuard],
     loadComponent: () => import('./pages/dashboard/dashboard').then((m) => m.Dashboard),
-
     children: [
+      {
+        path: '', // default child route
+        loadComponent: () => import('./pages/dashboard/home/home').then((m) => m.Home),
+      },
       {
         path: 'tasks',
         loadComponent: () => import('./pages/dashboard/tasks/tasks').then((m) => m.Tasks),
