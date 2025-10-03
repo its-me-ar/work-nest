@@ -1,0 +1,141 @@
+<div class="p-6 max-w-4xl mx-auto space-y-6">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-bold text-gray-800">My Leaves</h2>
+    <button
+      (click)="showForm = !showForm"
+      class="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition"
+    >
+      {{ showForm ? 'Cancel' : 'Add Leave' }}
+    </button>
+  </div>
+
+<!-- Leave Form -->
+<div *ngIf="showForm" class="bg-white shadow-md p-6 rounded-xl space-y-4">
+  <h3 class="text-lg font-semibold text-gray-700">Apply Leave</h3>
+
+  <!-- Sick leave info message -->
+  <div *ngIf="f['type'].value === 'Sick'" class="text-sm text-blue-600 mb-2">
+    Sick leave can only be applied for today.
+  </div>
+
+  <form [formGroup]="leaveForm" (ngSubmit)="applyLeave()" class="space-y-4">
+    <!-- Date Range -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block mb-1 font-medium">From</label>
+        <input
+          type="date"
+          formControlName="fromDate"
+          [attr.min]="f['type'].value === 'Sick' ? today : today"
+          (change)="onTypeChange()"
+          class="border rounded-lg px-3 py-2 w-full focus:ring-1 focus:ring-blue-400 focus:outline-none"
+        />
+        <small class="text-red-500" *ngIf="f['fromDate'].touched && f['fromDate'].errors?.['required']">
+          From date is required.
+        </small>
+        <small class="text-red-500" *ngIf="f['fromDate'].touched && f['fromDate'].errors?.['invalidSickDate']">
+          Sick leave can only be applied for today.
+        </small>
+        <small class="text-red-500" *ngIf="f['fromDate'].touched && f['fromDate'].errors?.['pastCasualDate']">
+          Casual leave cannot start in the past.
+        </small>
+      </div>
+
+      <div>
+        <label class="block mb-1 font-medium">To</label>
+        <input
+          type="date"
+          formControlName="toDate"
+          [attr.min]="f['type'].value === 'Sick' ? today : f['fromDate'].value || today"
+          class="border rounded-lg px-3 py-2 w-full focus:ring-1 focus:ring-blue-400 focus:outline-none"
+        />
+        <small class="text-red-500" *ngIf="f['toDate'].touched && f['toDate'].errors?.['required']">
+          To date is required.
+        </small>
+        <small class="text-red-500" *ngIf="f['toDate'].touched && f['toDate'].errors?.['dateRange']">
+          To date must be equal or after From date.
+        </small>
+      </div>
+    </div>
+
+    <!-- Type & Reason -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block mb-1 font-medium">Type</label>
+        <select
+          formControlName="type"
+          (change)="onTypeChange()"
+          class="border rounded-lg px-3 py-2 w-full focus:ring-1 focus:ring-blue-400 focus:outline-none"
+        >
+          <option value="Sick">Sick</option>
+          <option value="Casual">Casual</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block mb-1 font-medium">Reason</label>
+        <textarea
+          formControlName="reason"
+          rows="2"
+          class="border rounded-lg px-3 py-2 w-full focus:ring-1 focus:ring-blue-400 focus:outline-none"
+        ></textarea>
+        <small class="text-red-500" *ngIf="f['reason'].touched && f['reason'].errors?.['required']">
+          Reason is required.
+        </small>
+        <small class="text-red-500" *ngIf="f['reason'].touched && f['reason'].errors?.['minlength']">
+          Reason must be at least 5 characters.
+        </small>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="leaveForm.invalid"
+      class="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition opacity-80 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-black"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+
+
+  <!-- Leave List -->
+  <div *ngIf="!showForm" class="bg-white shadow-lg rounded-xl p-6 space-y-4">
+    <h3 class="text-xl font-semibold text-gray-700 pb-2 mb-4">Applied Leaves</h3>
+
+    <div *ngIf="leaves.length > 0" class="grid gap-4">
+      <div
+        *ngFor="let leave of leaves"
+        class="bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 flex justify-between items-start md:items-center"
+      >
+        <div>
+          <div class="flex items-center space-x-3 mb-1">
+            <span class="font-semibold text-gray-800">{{ leave.type }} Leave</span>
+            <span
+              [ngClass]="{
+                'bg-yellow-100 text-yellow-800': leave.status === 'Pending',
+                'bg-green-100 text-green-800': leave.status === 'Approved',
+                'bg-red-100 text-red-800': leave.status === 'Rejected'
+              }"
+              class="text-xs font-medium px-2 py-0.5 rounded-full"
+            >
+              {{ leave.status }}
+            </span>
+          </div>
+          <p class="text-gray-700 text-sm">
+            {{ leave.fromDate | date:'dd-MMM-yyyy' }}
+            <span *ngIf="leave.toDate !== leave.fromDate">
+              to {{ leave.toDate | date:'dd-MMM-yyyy' }}
+            </span>
+          </p>
+          <p class="text-gray-600 text-sm mt-1">{{ leave.reason }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="leaves.length === 0" class="text-gray-500 text-center py-6">
+      No leaves applied yet.
+    </div>
+  </div>
+</div>
