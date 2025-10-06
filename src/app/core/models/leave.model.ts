@@ -7,3 +7,9 @@ export interface Leave {
   status: 'Pending' | 'Approved' | 'Rejected';
   userId: number;
 }
+
+
+export interface LeaveWithUser extends Leave {
+  userEmail: string;
+  rejectReason?: string;
+}
