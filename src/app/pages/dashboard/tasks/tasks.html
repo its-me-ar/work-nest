@@ -1,123 +1,216 @@
-<div class="p-6 max-w-2xl mx-auto space-y-6">
-  <!-- Filter Tabs -->
-  <div class="flex gap-3 justify-center">
-    <button
-      class="px-5 py-2 rounded-full text-sm font-medium transition shadow-sm"
-      [class.bg-blue-600]="filter() === 'all'"
-      [class.text-white]="filter() === 'all'"
-      [class.bg-gray-100]="filter() !== 'all'"
-      [class.text-gray-700]="filter() !== 'all'"
-      (click)="setFilter('all')"
-    >
-      All
-    </button>
-    <button
-      class="px-5 py-2 rounded-full text-sm font-medium transition shadow-sm"
-      [class.bg-green-600]="filter() === 'completed'"
-      [class.text-white]="filter() === 'completed'"
-      [class.bg-gray-100]="filter() !== 'completed'"
-      [class.text-gray-700]="filter() !== 'completed'"
-      (click)="setFilter('completed')"
-    >
-      Completed
-    </button>
-    <button
-      class="px-5 py-2 rounded-full text-sm font-medium transition shadow-sm"
-      [class.bg-yellow-500]="filter() === 'pending'"
-      [class.text-white]="filter() === 'pending'"
-      [class.bg-gray-100]="filter() !== 'pending'"
-      [class.text-gray-700]="filter() !== 'pending'"
-      (click)="setFilter('pending')"
-    >
-      Pending
-    </button>
-  </div>
+<div class="p-4 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+  <div class="max-w-5xl mx-auto space-y-6">
+    
+    <!-- Header -->
+    <div class=" mb-8">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2 flex items-center justify-start gap-3">
+        Task Manager
+      </h1>
+      <p class="text-gray-600">Stay organized and productive</p>
+    </div>
 
-  <!-- Task List -->
-  <div class="bg-white shadow-md rounded-xl divide-y divide-gray-100">
-    <div
-      *ngFor="let task of filteredTasks()"
-      class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition rounded-lg"
-    >
-      <div class="flex items-center gap-3">
-        <input
-          type="checkbox"
-          [checked]="task.completed"
-          (change)="toggleTask(task)"
-          [disabled]="task.completed"
-          class="w-5 h-5 rounded text-blue-600 focus:ring-blue-500 shadow-sm"
-        />
-        <span
-          [class.line-through]="task.completed"
-          [class.text-gray-400]="task.completed"
-          class="text-gray-800 font-medium"
-        >
-          {{ task.title }}
-        </span>
-      </div>
-      <div class="flex gap-3 text-sm">
+    <!-- Filter Tabs -->
+    <div class="flex flex-wrap gap-3 justify-center bg-white p-3 rounded-2xl shadow-lg">
+      <button
+        class="px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-2 shadow-sm"
+        [class.bg-gradient-to-r]="filter() === 'all'"
+        [class.from-blue-600]="filter() === 'all'"
+        [class.to-blue-700]="filter() === 'all'"
+        [class.text-white]="filter() === 'all'"
+        [class.shadow-lg]="filter() === 'all'"
+        [class.scale-105]="filter() === 'all'"
+        [class.bg-gray-100]="filter() !== 'all'"
+        [class.text-gray-700]="filter() !== 'all'"
+        [class.hover:bg-gray-200]="filter() !== 'all'"
+        (click)="setFilter('all')"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        All Tasks
+      </button>
+      <button
+        class="px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-2 shadow-sm"
+        [class.bg-gradient-to-r]="filter() === 'completed'"
+        [class.from-green-600]="filter() === 'completed'"
+        [class.to-green-700]="filter() === 'completed'"
+        [class.text-white]="filter() === 'completed'"
+        [class.shadow-lg]="filter() === 'completed'"
+        [class.scale-105]="filter() === 'completed'"
+        [class.bg-gray-100]="filter() !== 'completed'"
+        [class.text-gray-700]="filter() !== 'completed'"
+        [class.hover:bg-gray-200]="filter() !== 'completed'"
+        (click)="setFilter('completed')"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        Completed
+      </button>
+      <button
+        class="px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-2 shadow-sm"
+        [class.bg-gradient-to-r]="filter() === 'pending'"
+        [class.from-yellow-500]="filter() === 'pending'"
+        [class.to-yellow-600]="filter() === 'pending'"
+        [class.text-white]="filter() === 'pending'"
+        [class.shadow-lg]="filter() === 'pending'"
+        [class.scale-105]="filter() === 'pending'"
+        [class.bg-gray-100]="filter() !== 'pending'"
+        [class.text-gray-700]="filter() !== 'pending'"
+        [class.hover:bg-gray-200]="filter() !== 'pending'"
+        (click)="setFilter('pending')"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        Pending
+      </button>
+    </div>
+
+    <!-- Add/Edit Task -->
+    <div *ngIf="filter() === 'all'" class="bg-white rounded-2xl shadow-lg p-4">
+      <div class="flex flex-col sm:flex-row gap-3">
+        <div class="flex-1 relative">
+          <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          <input
+            type="text"
+            [(ngModel)]="newTask"
+            [placeholder]="editTaskId ? 'Edit task...' : 'Add a new task...'"
+            class="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+          />
+        </div>
         <button
-          class="text-blue-600 hover:text-blue-800 font-medium"
-          (click)="startEdit(task)"
-          [disabled]="task.completed"
-          [class.opacity-50]="task.completed"
+          class="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 font-semibold flex items-center justify-center gap-2"
+          (click)="addOrUpdateTask()"
         >
-          Edit
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" *ngIf="!editTaskId"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" *ngIf="editTaskId"></path>
+          </svg>
+          {{ editTaskId ? 'Update' : 'Add' }}
         </button>
         <button
-          class="text-red-600 hover:text-red-800 font-medium"
-          (click)="confirmDelete(task)"
-          [disabled]="task.completed"
-          [class.opacity-50]="task.completed"
+          *ngIf="editTaskId"
+          class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 font-semibold flex items-center justify-center gap-2"
+          (click)="cancelEdit()"
         >
-          Delete
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+          Cancel
         </button>
       </div>
     </div>
-    <div *ngIf="filteredTasks().length === 0" class="p-4 text-center text-gray-500">
-      No tasks found
-    </div>
-  </div>
 
-  <!-- Add/Edit Task -->
-  <div *ngIf="filter() === 'all'" class="flex gap-2">
-    <input
-      type="text"
-      [(ngModel)]="newTask"
-      [placeholder]="editTaskId ? 'Edit task...' : 'Add new task'"
-      class="flex-1 px-3 py-2 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
-    />
-    <button
-      class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-sm transition"
-      (click)="addOrUpdateTask()"
-    >
-      {{ editTaskId ? 'Update' : 'Add' }}
-    </button>
-    <button
-      *ngIf="editTaskId"
-      class="px-5 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg shadow-sm transition"
-      (click)="cancelEdit()"
-    >
-      Cancel
-    </button>
+    <!-- Task List -->
+    <div class="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200">
+      <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
+        <h2 class="text-xl font-semibold text-white flex items-center gap-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+          </svg>
+          Your Tasks
+        </h2>
+      </div>
+
+      <div class="divide-y divide-gray-100">
+        <div
+          *ngFor="let task of filteredTasks()"
+          class="flex items-center justify-between px-6 py-4 hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent transition-all duration-200 group"
+        >
+          <div class="flex items-center gap-4 flex-1">
+            <div class="relative">
+              <input
+                type="checkbox"
+                [checked]="task.completed"
+                (change)="toggleTask(task)"
+                [disabled]="task.completed"
+                class="w-6 h-6 rounded-lg text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer transition-all duration-200 border-2 border-gray-300"
+                [class.cursor-not-allowed]="task.completed"
+              />
+              <svg *ngIf="task.completed" class="absolute inset-0 w-6 h-6 text-green-600 pointer-events-none" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span
+              [class.line-through]="task.completed"
+              [class.text-gray-400]="task.completed"
+              [class.text-gray-800]="!task.completed"
+              class="font-medium text-lg transition-all duration-200"
+            >
+              {{ task.title }}
+            </span>
+          </div>
+          <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <button
+              class="px-4 py-2 text-blue-600 hover:bg-blue-100 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+              (click)="startEdit(task)"
+              [disabled]="task.completed"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+              </svg>
+              Edit
+            </button>
+            <button
+              class="px-4 py-2 text-red-600 hover:bg-red-100 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+              (click)="confirmDelete(task)"
+              [disabled]="task.completed"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              </svg>
+              Delete
+            </button>
+          </div>
+        </div>
+        
+        <div *ngIf="filteredTasks().length === 0" class="p-12 text-center">
+          <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+            <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <p class="text-gray-500 text-lg font-medium">No tasks found</p>
+          <p class="text-gray-400 text-sm mt-1">Start by adding a new task above</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Delete Confirmation Modal -->
-  <div *ngIf="deleteTaskId !== null" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-    <div class="bg-white p-6 rounded-xl shadow-xl w-80 animate-fadeIn">
-      <h2 class="text-lg font-bold text-red-600">Delete Task?</h2>
-      <p class="text-gray-600 mt-2">Are you sure you want to delete this task?</p>
-      <div class="mt-5 flex justify-end gap-3">
+  <div *ngIf="deleteTaskId !== null" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn">
+    <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full transform transition-all duration-300 scale-100 animate-slideUp">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+          <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold text-gray-800">Delete Task?</h2>
+          <p class="text-gray-600 mt-1">This action cannot be undone</p>
+        </div>
+      </div>
+      
+      <p class="text-gray-600 mb-6 ml-18">Are you sure you want to permanently delete this task?</p>
+      
+      <div class="flex gap-3">
         <button
-          class="px-4 py-2 rounded-lg hover:bg-gray-100"
+          class="flex-1 px-6 py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold transition-all duration-200 shadow-sm hover:shadow-md"
           (click)="cancelDelete()"
         >
           Cancel
         </button>
         <button
-          class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-sm"
+          class="flex-1 px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white rounded-xl shadow-lg hover:shadow-xl font-semibold transition-all duration-200 flex items-center justify-center gap-2"
           (click)="deleteTaskConfirmed()"
         >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+          </svg>
           Delete
         </button>
       </div>

@@ -1,6 +1,6 @@
 // sidebar.ts
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {
   LucideAngularModule,
@@ -8,6 +8,7 @@ import {
   ListCheckIcon,
   FileTextIcon,
   LogOutIcon,
+  FileScanIcon,
 } from 'lucide-angular';
 import { UiStateService } from '../../core/services/ui-state.service';
 import { UserService } from '../../core/services/users/user-service';
@@ -28,12 +29,23 @@ export class Sidebar {
   readonly ListCheckIcon = ListCheckIcon;
   readonly FileTextIcon = FileTextIcon;
   readonly LogOutIcon = LogOutIcon;
-
-  navItems = [
+  readonly FileScanIcon = FileScanIcon;
+  // All possible nav items
+  private allNavItems = [
     { icon: LayoutDashboardIcon, label: 'Dashboard', route: '/' },
     { icon: ListCheckIcon, label: 'My Task', route: '/tasks' },
     { icon: FileTextIcon, label: 'Leaves', route: '/leaves' },
+    { icon: FileScanIcon, label: 'Leave-review', route: '/leave-management', roles: ['admin'] },
   ];
+
+  // Filter nav items based on user role
+  navItems = computed(() => {
+    const user = this.userService.user();
+    return this.allNavItems.filter(item => {
+      if (!item.roles) return true; // no role restriction
+      return user && item.roles.includes(user.role || '');
+    });
+  });
 
   isDesktop(): boolean {
     return typeof window !== 'undefined' && window.innerWidth >= 1024;

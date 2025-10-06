@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth-guard';
+import { roleGuard } from './core/guards/role-guard';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,15 @@ export const routes: Routes = [
       {
         path: 'leaves',
         loadComponent: () => import('./pages/dashboard/leaves/leaves').then((m) => m.Leaves),
+      },
+      {
+        path: 'leave-management',
+        canActivate: [authGuard, roleGuard], // protect with auth + role
+        data: { roles: ['admin'] }, // only admins allowed
+        loadComponent: () =>
+          import('./pages/dashboard/leave-management/leave-management').then(
+            (m) => m.LeaveManagement
+          ),
       },
     ],
   },

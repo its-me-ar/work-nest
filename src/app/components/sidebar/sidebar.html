@@ -12,7 +12,7 @@
   <!-- Navigation -->
   <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
     <a
-      *ngFor="let item of navItems"
+      *ngFor="let item of navItems()"
       [routerLink]="item.route"
       routerLinkActive="bg-blue-500 text-white"
       [routerLinkActiveOptions]="{ exact: item.route === '/' }"
