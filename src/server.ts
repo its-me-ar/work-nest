@@ -24,6 +24,13 @@ const angularApp = new AngularNodeAppEngine();
  * ```
  */
 
+
+// ---- Health check API ----
+app.get('/api/health', (_req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+// --------------------------
+
 /**
  * Serve static files from /browser
  */
