@@ -8,21 +8,21 @@ import { Leave } from '../../../core/models/leave.model';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 // NOTE: Based on test failures, the environment's "today" seems to be 2025-10-08
-const mockToday = '2025-10-08'; 
+const mockToday = '2025-10-08';
 
 // --- Mock Dependencies ---
 
 // 1. Mock Leave Data (for overlap testing)
 const mockLeaves: Leave[] = [
   // An existing leave that overlaps with 2025-10-15
-  { 
+  {
     id: 1, // Added required id
     userId: 101, // Added required userId
-    fromDate: '2025-10-10', 
-    toDate: '2025-10-20', 
-    type: 'Casual', 
-    reason: 'Test 1', 
-    status: 'Approved' 
+    fromDate: '2025-10-10',
+    toDate: '2025-10-20',
+    type: 'Casual',
+    reason: 'Test 1',
+    status: 'Approved',
   },
 ];
 
@@ -45,8 +45,8 @@ const mockToastService = {
 // For testing purposes, we'll spy on the internal logic flow and assume the validators work.
 
 // Mocked helper that is expected to be imported by the component
-// We can't actually mock the imported functions directly in a TestBed setup, 
-// so we'll rely on setting test data that passes or fails validation checks 
+// We can't actually mock the imported functions directly in a TestBed setup,
+// so we'll rely on setting test data that passes or fails validation checks
 // and ensure the component methods execute the correct path.
 
 describe('Leaves', () => {
@@ -59,15 +59,15 @@ describe('Leaves', () => {
   beforeEach(async () => {
     // Inject FormBuilder for manual form setup and control in tests
     fb = new FormBuilder();
-    
+
     await TestBed.configureTestingModule({
       imports: [Leaves, ReactiveFormsModule],
       providers: [
         // Satisfy the HttpClient dependency if used internally by LeavesService
-        provideHttpClientTesting(), 
+        provideHttpClientTesting(),
         { provide: LeavesService, useValue: mockLeavesService },
         { provide: ToastService, useValue: mockToastService },
-        // Since we cannot mock imported helper functions, we inject FormBuilder 
+        // Since we cannot mock imported helper functions, we inject FormBuilder
         // to manually set control values and validation states.
         FormBuilder,
       ],
@@ -77,14 +77,14 @@ describe('Leaves', () => {
     component = fixture.componentInstance;
     leaveService = TestBed.inject(LeavesService) as any;
     toastService = TestBed.inject(ToastService) as any;
-    
-    // Manually set component.today to the determined mock date (2025-10-08) 
+
+    // Manually set component.today to the determined mock date (2025-10-08)
     // to align with environment behavior and fix test expectations.
     component.today = mockToday;
 
     // Call ngOnInit manually to setup the form group after dependencies are injected
-    component.ngOnInit(); 
-    fixture.detectChanges(); 
+    component.ngOnInit();
+    fixture.detectChanges();
 
     // Reset spies after initial ngOnInit calls
     leaveService.loadLeaves.calls.reset();
@@ -98,9 +98,9 @@ describe('Leaves', () => {
     expect(component.leaveForm).toBeDefined();
     expect(component.leaveForm.controls['type'].value).toBe('Sick');
     // Removed strict validator check as it was causing failure due to instance mismatch
-    expect(component.leaveForm.controls['reason']).toBeDefined(); 
+    expect(component.leaveForm.controls['reason']).toBeDefined();
   });
-  
+
   it('should expose the leave service signal via the leaves getter', () => {
     expect(component.leaves.length).toBe(1);
     expect(component.leaves[0].type).toBe('Casual');
@@ -149,7 +149,7 @@ describe('Leaves', () => {
       type: 'Casual',
       reason: 'Holiday break',
     };
-    
+
     beforeEach(() => {
       // Set a valid state for the form initially
       component.leaveForm.setValue(validLeaveData);
@@ -161,7 +161,7 @@ describe('Leaves', () => {
     it('should show an error toast and NOT call applyLeave if form is invalid', () => {
       // Arrange: Make form invalid
       component.f['reason'].setValue('toolong'); // Violates minLength(5)
-      component.leaveForm.setErrors({ 'invalid': true }); // Manually set error
+      component.leaveForm.setErrors({ invalid: true }); // Manually set error
 
       // Act
       component.applyLeave();
@@ -175,8 +175,8 @@ describe('Leaves', () => {
       // Arrange: Set fromDate to a past date
       component.f['fromDate'].setValue('2025-01-01');
       component.f['type'].setValue('Casual');
-      
-      // CRITICAL FIX: Manually clear errors on controls to bypass external validators 
+
+      // CRITICAL FIX: Manually clear errors on controls to bypass external validators
       // and force execution down to the component's internal date comparison logic.
       component.f['fromDate'].setErrors(null);
       component.f['toDate'].setErrors(null);
@@ -189,15 +189,15 @@ describe('Leaves', () => {
       expect(toastService.error).toHaveBeenCalledWith('Casual leave cannot start in the past ❌');
       expect(leaveService.applyLeave).not.toHaveBeenCalled();
     });
-    
-    // NOTE: Testing the Sick leave restriction is tricky without mocking the `normalizeDate` utility, 
+
+    // NOTE: Testing the Sick leave restriction is tricky without mocking the `normalizeDate` utility,
     // but the logic relies on string comparison against `this.today`, which we mocked.
     it('should show an error toast and NOT call applyLeave if a Sick leave is not for today', () => {
       // Arrange: Set fromDate to future date (2025-11-01)
       component.f['fromDate'].setValue('2025-11-01');
       component.f['toDate'].setValue('2025-11-01');
       component.f['type'].setValue('Sick');
-      
+
       // Manually clear errors to ensure we hit the internal component logic
       component.f['fromDate'].setErrors(null);
       component.f['toDate'].setErrors(null);
@@ -207,7 +207,9 @@ describe('Leaves', () => {
       component.applyLeave();
 
       // Assert
-      expect(toastService.error).toHaveBeenCalledWith('Sick leave can only be applied for today ❌');
+      expect(toastService.error).toHaveBeenCalledWith(
+        'Sick leave can only be applied for today ❌',
+      );
       expect(leaveService.applyLeave).not.toHaveBeenCalled();
     });
 
@@ -225,7 +227,9 @@ describe('Leaves', () => {
       component.applyLeave();
 
       // Assert
-      expect(toastService.error).toHaveBeenCalledWith('You already have leave during these dates ❌');
+      expect(toastService.error).toHaveBeenCalledWith(
+        'You already have leave during these dates ❌',
+      );
       expect(leaveService.applyLeave).not.toHaveBeenCalled();
     });
 
@@ -238,8 +242,8 @@ describe('Leaves', () => {
         reason: 'Future holiday',
       };
       component.leaveForm.setValue(submissionData);
-      component.leaveForm.setErrors(null); 
-      
+      component.leaveForm.setErrors(null);
+
       // Act
       component.applyLeave();
 
@@ -247,9 +251,9 @@ describe('Leaves', () => {
       expect(leaveService.applyLeave).toHaveBeenCalledTimes(1);
       expect(leaveService.applyLeave).toHaveBeenCalledWith(submissionData);
       expect(toastService.success).toHaveBeenCalledWith('Leave added successfully ✅');
-      
+
       // Check form reset state (type should be 'Sick' and dates should be mockToday)
-      expect(component.leaveForm.value.type).toBe('Sick'); 
+      expect(component.leaveForm.value.type).toBe('Sick');
       expect(component.leaveForm.value.fromDate).toBe(mockToday);
       expect(component.leaveForm.value.toDate).toBe(mockToday);
       expect(component.leaveForm.pristine).toBeTrue();

@@ -10,7 +10,10 @@ import { environment } from '../../../../environment/environment';
 // --- Mocks and Mock Data ---
 
 // Define a type for the user object used in the mock (assuming id and email are present)
-interface MockUser { id: number; email: string; }
+interface MockUser {
+  id: number;
+  email: string;
+}
 const mockUser: MockUser = { id: 42, email: 'test@example.com' };
 
 // 1. Mock the UserService to control the logged-in user state
@@ -21,8 +24,24 @@ const mockUserService = {
 
 // 2. Mock Data for API responses
 const mockLeaves: Leave[] = [
-  { id: 1, fromDate: '2025-11-01', toDate: '2025-11-01', type: 'Sick', reason: 'Fever', status: 'Approved', userId: 42 },
-  { id: 2, fromDate: '2025-12-24', toDate: '2025-12-25', type: 'Casual', reason: 'Holiday', status: 'Pending', userId: 42 },
+  {
+    id: 1,
+    fromDate: '2025-11-01',
+    toDate: '2025-11-01',
+    type: 'Sick',
+    reason: 'Fever',
+    status: 'Approved',
+    userId: 42,
+  },
+  {
+    id: 2,
+    fromDate: '2025-12-24',
+    toDate: '2025-12-25',
+    type: 'Casual',
+    reason: 'Holiday',
+    status: 'Pending',
+    userId: 42,
+  },
 ];
 
 describe('LeavesService', () => {

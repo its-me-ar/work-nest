@@ -15,11 +15,11 @@ describe('App', () => {
         provideHttpClientTesting(),
       ],
     })
-    // FIX: Override the component's template to provide content inline for testing.
-    // This allows the test runner to find the 'h1' element without loading app.html.
-    .overrideComponent(App, {
+      // FIX: Override the component's template to provide content inline for testing.
+      // This allows the test runner to find the 'h1' element without loading app.html.
+      .overrideComponent(App, {
         set: {
-            template: `
+          template: `
                 <header>
                     <h1>Hello, {{ title() }}</h1>
                 </header>
@@ -27,8 +27,8 @@ describe('App', () => {
                 <app-toast />
             `,
         },
-    })
-    .compileComponents();
+      })
+      .compileComponents();
   });
 
   it('should create the app', () => {
@@ -41,7 +41,7 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    
+
     // The test now correctly checks the content of the H1 from the overridden template
     expect(compiled.querySelector('h1')?.textContent).toContain('Hello, work-nest');
   });

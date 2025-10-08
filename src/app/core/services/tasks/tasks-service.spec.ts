@@ -10,7 +10,10 @@ import { environment } from '../../../../environment/environment';
 // --- Mocks and Mock Data ---
 
 // Define a type for the user object used in the mock
-interface MockUser { id: number; email: string; }
+interface MockUser {
+  id: number;
+  email: string;
+}
 const mockUser: MockUser = { id: 1, email: 'test@example.com' };
 
 // 1. Mock the UserService
@@ -26,9 +29,7 @@ const mockTasks: Task[] = [
   { id: 2, title: 'Pending Task 2', completed: false, userId: 1 },
 ];
 
-const reloadedTasks: Task[] = [
-    { id: 4, title: 'New Reloaded Task', completed: false, userId: 1 },
-];
+const reloadedTasks: Task[] = [{ id: 4, title: 'New Reloaded Task', completed: false, userId: 1 }];
 
 describe('TaskService', () => {
   let service: TaskService;
@@ -51,10 +52,10 @@ describe('TaskService', () => {
 
     // Ensure the mock user is authenticated at the start of every test
     mockUserService.user.set(mockUser);
-    
+
     service = TestBed.inject(TaskService);
     httpTestingController = TestBed.inject(HttpTestingController);
-    
+
     // Handle the initial loadTasks() call from the constructor synchronously
     // This ensures the service starts with data before any tests run.
     const initialReq = httpTestingController.expectOne(`${apiUrl}${userIdQuery}`);
@@ -93,7 +94,11 @@ describe('TaskService', () => {
     // Arrange
     const newTitle = 'New Test Task';
     const mockResponse: Task = { id: 10, title: newTitle, completed: false, userId: mockUser.id };
-    const expectedPayload: Omit<Task, 'id'> = { title: newTitle, completed: false, userId: mockUser.id };
+    const expectedPayload: Omit<Task, 'id'> = {
+      title: newTitle,
+      completed: false,
+      userId: mockUser.id,
+    };
     const initialLength = service.tasks().length;
 
     // Act
@@ -114,7 +119,7 @@ describe('TaskService', () => {
 
   it('should updateTask and make a PUT request', () => {
     // Arrange: Use the completed task (ID 1)
-    const taskToUpdate = service.tasks().find(t => t.id === 1)!;
+    const taskToUpdate = service.tasks().find((t) => t.id === 1)!;
     const updatedTitle = 'Updated Completed Task 1';
     const updatedTask: Task = { ...taskToUpdate, title: updatedTitle };
 
@@ -130,7 +135,7 @@ describe('TaskService', () => {
     req.flush(updatedTask);
 
     // Assert: Signal is updated
-    const taskInSignal = service.tasks().find(t => t.id === 1);
+    const taskInSignal = service.tasks().find((t) => t.id === 1);
     expect(taskInSignal!.title).toBe(updatedTitle);
   });
 
@@ -151,13 +156,13 @@ describe('TaskService', () => {
 
     // Assert: Signal is updated
     expect(service.tasks().length).toBe(initialLength - 1);
-    expect(service.tasks().some(t => t.id === idToDelete)).toBeFalse();
+    expect(service.tasks().some((t) => t.id === idToDelete)).toBeFalse();
   });
-  
+
   it('should toggleTask and call updateTask to mark a pending task complete', () => {
     // Arrange: Grab the pending task (ID 2)
-    const pendingTask = service.tasks().find(t => t.id === 2)!;
-    
+    const pendingTask = service.tasks().find((t) => t.id === 2)!;
+
     // Act
     service.toggleTask(pendingTask);
 
@@ -169,13 +174,13 @@ describe('TaskService', () => {
     // Respond
     const toggledTask: Task = { ...pendingTask, completed: true };
     updateReq.flush(toggledTask);
-    
+
     // Assert 2: Check signal
-    expect(service.tasks().find(t => t.id === 2)!.completed).toBeTrue();
+    expect(service.tasks().find((t) => t.id === 2)!.completed).toBeTrue();
 
     // Act 2: Try to toggle the now-completed task again (should be guarded by service logic)
     service.toggleTask(toggledTask);
-    
+
     // Assert 3: No new requests should be queued
     httpTestingController.expectNone(`${apiUrl}/${pendingTask.id}`);
   });
@@ -191,14 +196,14 @@ describe('TaskService', () => {
     service.setFilter('completed');
     // Expect 1 completed task
     expect(service.filteredTasks().length).toBe(1);
-    expect(service.filteredTasks().every(t => t.completed)).toBeTrue();
+    expect(service.filteredTasks().every((t) => t.completed)).toBeTrue();
   });
 
   it('should correctly compute filteredTasks for "pending"', () => {
     service.setFilter('pending');
     // Expect 1 pending task
     expect(service.filteredTasks().length).toBe(1);
-    expect(service.filteredTasks().every(t => !t.completed)).toBeTrue();
+    expect(service.filteredTasks().every((t) => !t.completed)).toBeTrue();
   });
 
   // --- Authentication Guard Tests (Refactored for Stability) ---
@@ -206,7 +211,7 @@ describe('TaskService', () => {
   it('should NOT call loadTasks if user is null', () => {
     // Ensure the initial request from beforeEach is cleared.
     httpTestingController.verify();
-    
+
     // Un-authenticate the user
     mockUserService.user.set(null);
     service = TestBed.inject(TaskService); // Re-instantiate the service to trigger constructor
@@ -217,8 +222,8 @@ describe('TaskService', () => {
 
   it('should NOT call addTask if user is null', () => {
     // Ensure any requests from prior tests are cleared.
-    httpTestingController.verify(); 
-    
+    httpTestingController.verify();
+
     // Un-authenticate the user
     mockUserService.user.set(null);
 

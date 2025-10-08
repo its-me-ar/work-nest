@@ -12,7 +12,7 @@ describe('NotFound', () => {
       providers: [
         // 💡 Use provideRouter to satisfy RouterLink dependencies
         // This is the modern, non-deprecated approach for standalone components.
-        provideRouter([]), 
+        provideRouter([]),
       ],
     }).compileComponents();
 

@@ -24,18 +24,16 @@ describe('Dashboard', () => {
         Dashboard,
         RouterTestingModule.withRoutes([]), // ADDED: Include RouterTestingModule
       ],
-      providers: [
-        { provide: UiStateService, useValue: mockUiStateService },
-      ],
-      // Since Dashboard imports other standalone components (Sidebar, Header) 
-      // which we don't need to test here, we use NO_ERRORS_SCHEMA 
+      providers: [{ provide: UiStateService, useValue: mockUiStateService }],
+      // Since Dashboard imports other standalone components (Sidebar, Header)
+      // which we don't need to test here, we use NO_ERRORS_SCHEMA
       // to prevent errors about unrecognized selectors if they are not explicitly mocked.
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Dashboard);
     component = fixture.componentInstance;
-    
+
     // Inject the mocked service
     uiStateService = TestBed.inject(UiStateService) as any;
 
@@ -52,7 +50,7 @@ describe('Dashboard', () => {
 
   it('should call uiStateService.initSidebar on ngOnInit', () => {
     // Manually trigger change detection to call ngOnInit exactly once for this test
-    fixture.detectChanges(); 
+    fixture.detectChanges();
     expect(uiStateService.initSidebar).toHaveBeenCalledTimes(1);
   });
 

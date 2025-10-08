@@ -51,7 +51,7 @@ describe('Tasks', () => {
 
     fixture = TestBed.createComponent(Tasks);
     component = fixture.componentInstance;
-    
+
     // Inject services from the TestBed
     taskService = TestBed.inject(TaskService) as any;
     toastService = TestBed.inject(ToastService) as any;
@@ -101,16 +101,16 @@ describe('Tasks', () => {
       // Setup edit mode
       component.editTaskId = mockTask1.id;
       component.newTask = 'Updated Task Title';
-      
+
       // Mock the task signal lookup (usually handled by the service, but we manually mock it here)
       // Since 'taskService.tasks()' is a signal, we simulate the internal find logic.
       taskService.tasks.set([mockTask1]);
 
       component.addOrUpdateTask();
 
-      expect(taskService.updateTask).toHaveBeenCalledWith({ 
-        ...mockTask1, 
-        title: 'Updated Task Title' 
+      expect(taskService.updateTask).toHaveBeenCalledWith({
+        ...mockTask1,
+        title: 'Updated Task Title',
       });
       expect(toastService.success).toHaveBeenCalledWith('Task updated successfully');
       expect(component.newTask).toBe('');
