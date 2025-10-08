@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, ViewChild, signal, WritableSignal } from '@angular/core';
+import { signal, WritableSignal } from '@angular/core';
 import { LeaveManagement } from './leave-management';
 import { LeaveManagementService } from '../../../core/services/leaves/management/leave-management-service';
 import { LeaveWithUser } from '../../../core/models/leave.model';

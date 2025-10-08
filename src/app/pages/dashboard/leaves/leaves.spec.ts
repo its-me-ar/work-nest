@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
 import { Leaves } from './leaves';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { LeavesService } from '../../../core/services/leaves/leaves-service';
 import { ToastService } from '../../../core/services/toast/toast-service';
 import { Leave } from '../../../core/models/leave.model';
@@ -54,12 +54,8 @@ describe('Leaves', () => {
   let fixture: ComponentFixture<Leaves>;
   let leaveService: typeof mockLeavesService;
   let toastService: typeof mockToastService;
-  let fb: FormBuilder;
 
   beforeEach(async () => {
-    // Inject FormBuilder for manual form setup and control in tests
-    fb = new FormBuilder();
-
     await TestBed.configureTestingModule({
       imports: [Leaves, ReactiveFormsModule],
       providers: [
@@ -69,7 +65,6 @@ describe('Leaves', () => {
         { provide: ToastService, useValue: mockToastService },
         // Since we cannot mock imported helper functions, we inject FormBuilder
         // to manually set control values and validation states.
-        FormBuilder,
       ],
     }).compileComponents();
 
