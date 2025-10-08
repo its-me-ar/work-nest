@@ -4,7 +4,6 @@ import {
   CanActivateFn,
   Router,
   ActivatedRouteSnapshot,
-  UrlTree,
   RouterStateSnapshot,
 } from '@angular/router';
 import { UserService } from '../services/users/user-service'; // Assumed dependency
@@ -15,10 +14,7 @@ import { UserService } from '../services/users/user-service'; // Assumed depende
  * Role-based guard
  * Usage: add `data: { roles: ['admin'] }` to route
  */
-export const roleGuard: CanActivateFn = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-) => {
+export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   // Casting to 'any' for testing purposes since we don't have the actual UserService definition
   const userService = inject(UserService) as any;
   const router = inject(Router);

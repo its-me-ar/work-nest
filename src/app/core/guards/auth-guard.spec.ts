@@ -1,14 +1,11 @@
 import { inject, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-// FIX: Import RouterStateSnapshot to complete the CanActivateFn signature
 import {
   CanActivateFn,
   Router,
   ActivatedRouteSnapshot,
-  UrlTree,
   RouterStateSnapshot,
 } from '@angular/router';
-// Assuming UserService is available from '../services/users/user-service'
 import { UserService } from '../services/users/user-service';
 
 // --- Auth Guard Implementation (Provided by User) ---
@@ -19,10 +16,7 @@ interface MockUserService {
 }
 
 // FIX: Add the required second parameter (state: RouterStateSnapshot) to the guard function signature.
-export const authGuard: CanActivateFn = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-) => {
+export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   // Note: We cast the injected services to the type of our mocks for testing.
   const userService = inject(UserService) as unknown as MockUserService;
   const router = inject(Router);
