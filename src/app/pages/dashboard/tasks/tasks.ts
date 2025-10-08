@@ -5,7 +5,6 @@ import { TaskService } from '../../../core/services/tasks/tasks-service';
 import { Task } from '../../../core/models/task.model';
 import { ToastService } from '../../../core/services/toast/toast-service';
 
-
 @Component({
   selector: 'app-tasks',
   standalone: true,
@@ -17,7 +16,10 @@ export class Tasks {
   editTaskId: number | null = null;
   deleteTaskId: number | null = null;
 
-  constructor(private taskService: TaskService, private toast: ToastService) {}
+  constructor(
+    private taskService: TaskService,
+    private toast: ToastService,
+  ) {}
 
   get filteredTasks() {
     return this.taskService.filteredTasks;

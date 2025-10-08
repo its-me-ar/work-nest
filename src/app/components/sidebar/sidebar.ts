@@ -23,7 +23,7 @@ export class Sidebar {
   constructor(
     public ui: UiStateService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
   ) {}
   readonly LayoutDashboardIcon = LayoutDashboardIcon;
   readonly ListCheckIcon = ListCheckIcon;
@@ -41,7 +41,7 @@ export class Sidebar {
   // Filter nav items based on user role
   navItems = computed(() => {
     const user = this.userService.user();
-    return this.allNavItems.filter(item => {
+    return this.allNavItems.filter((item) => {
       if (!item.roles) return true; // no role restriction
       return user && item.roles.includes(user.role || '');
     });

@@ -20,7 +20,7 @@ export class Login {
     private fb: FormBuilder,
     private auth: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

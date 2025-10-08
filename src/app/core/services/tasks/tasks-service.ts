@@ -24,7 +24,10 @@ export class TaskService {
     return tasks;
   });
 
-  constructor(private http: HttpClient, private userService: UserService) {
+  constructor(
+    private http: HttpClient,
+    private userService: UserService,
+  ) {
     this.loadTasks();
   }
 
@@ -34,7 +37,8 @@ export class TaskService {
     if (!user) return;
 
     // Load only tasks for the current user
-    this.http.get<Task[]>(`${this.apiUrl}?userId=${user.id}`)
+    this.http
+      .get<Task[]>(`${this.apiUrl}?userId=${user.id}`)
       .subscribe((tasks) => this.tasksSignal.set(tasks));
   }
 
@@ -54,10 +58,8 @@ export class TaskService {
       .put<Task>(`${this.apiUrl}/${task.id}`, task)
       .pipe(
         tap((updated) => {
-          this.tasksSignal.update((tasks) =>
-            tasks.map((t) => (t.id === updated.id ? updated : t))
-          );
-        })
+          this.tasksSignal.update((tasks) => tasks.map((t) => (t.id === updated.id ? updated : t)));
+        }),
       )
       .subscribe();
   }
@@ -68,7 +70,7 @@ export class TaskService {
       .pipe(
         tap(() => {
           this.tasksSignal.update((tasks) => tasks.filter((t) => t.id !== id));
-        })
+        }),
       )
       .subscribe();
   }

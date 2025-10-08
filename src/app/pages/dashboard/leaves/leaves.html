@@ -1,6 +1,5 @@
 <div class="p-4 md:p-6 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
   <div class="max-w-5xl mx-auto space-y-6">
-    
     <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
       <div>
@@ -11,22 +10,46 @@
         (click)="showForm = !showForm"
         class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center gap-2 font-medium"
       >
-        <svg *ngIf="!showForm" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        <svg
+          *ngIf="!showForm"
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 4v16m8-8H4"
+          ></path>
         </svg>
         <svg *ngIf="showForm" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
         </svg>
         {{ showForm ? 'Cancel' : 'Apply Leave' }}
       </button>
     </div>
 
     <!-- Leave Form -->
-    <div *ngIf="showForm" class="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200">
+    <div
+      *ngIf="showForm"
+      class="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200"
+    >
       <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
         <h3 class="text-xl font-semibold text-white flex items-center gap-2">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            ></path>
           </svg>
           Apply for Leave
         </h3>
@@ -34,10 +57,23 @@
 
       <div class="p-6">
         <!-- Sick leave info message -->
-        <div *ngIf="f['type'].value === 'Sick'" class="mb-4 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg">
+        <div
+          *ngIf="f['type'].value === 'Sick'"
+          class="mb-4 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg"
+        >
           <div class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <svg
+              class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
             </svg>
             <p class="text-sm text-blue-700 font-medium">
               Sick leave can only be applied for today.
@@ -46,41 +82,62 @@
         </div>
 
         <form [formGroup]="leaveForm" (ngSubmit)="applyLeave()" class="space-y-6">
-          
           <!-- Leave Type Selection -->
           <div>
             <label class="block mb-2 font-semibold text-gray-700 flex items-center gap-2">
-              <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+              <svg
+                class="w-5 h-5 text-gray-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                ></path>
               </svg>
               Leave Type
             </label>
             <div class="grid grid-cols-2 gap-3">
               <button
                 type="button"
-                (click)="leaveForm.patchValue({type: 'Sick'}); onTypeChange()"
+                (click)="leaveForm.patchValue({ type: 'Sick' }); onTypeChange()"
                 [ngClass]="{
                   'bg-blue-600 text-white border-blue-600 shadow-lg': f['type'].value === 'Sick',
-                  'bg-white text-gray-700 border-gray-300 hover:border-blue-400': f['type'].value !== 'Sick'
+                  'bg-white text-gray-700 border-gray-300 hover:border-blue-400':
+                    f['type'].value !== 'Sick',
                 }"
                 class="border-2 rounded-xl px-4 py-4 font-medium transition-all duration-200 flex flex-col items-center gap-2"
               >
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  ></path>
                 </svg>
                 Sick Leave
               </button>
               <button
                 type="button"
-                (click)="leaveForm.patchValue({type: 'Casual'}); onTypeChange()"
+                (click)="leaveForm.patchValue({ type: 'Casual' }); onTypeChange()"
                 [ngClass]="{
                   'bg-blue-600 text-white border-blue-600 shadow-lg': f['type'].value === 'Casual',
-                  'bg-white text-gray-700 border-gray-300 hover:border-blue-400': f['type'].value !== 'Casual'
+                  'bg-white text-gray-700 border-gray-300 hover:border-blue-400':
+                    f['type'].value !== 'Casual',
                 }"
                 class="border-2 rounded-xl px-4 py-4 font-medium transition-all duration-200 flex flex-col items-center gap-2"
               >
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
                 </svg>
                 Casual Leave
               </button>
@@ -91,8 +148,18 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label class="block mb-2 font-semibold text-gray-700 flex items-center gap-2">
-                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                <svg
+                  class="w-5 h-5 text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  ></path>
                 </svg>
                 From Date
               </label>
@@ -103,21 +170,42 @@
                 (change)="onTypeChange()"
                 class="border-2 border-gray-300 rounded-xl px-4 py-3 w-full focus:ring-2 focus:ring-blue-400 focus:border-blue-400 focus:outline-none transition-all duration-200"
               />
-              <small class="text-red-600 text-sm mt-1 flex items-center gap-1" *ngIf="f['fromDate'].touched && f['fromDate'].errors?.['required']">
+              <small
+                class="text-red-600 text-sm mt-1 flex items-center gap-1"
+                *ngIf="f['fromDate'].touched && f['fromDate'].errors?.['required']"
+              >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                    clip-rule="evenodd"
+                  ></path>
                 </svg>
                 From date is required.
               </small>
-              <small class="text-red-600 text-sm mt-1 flex items-center gap-1" *ngIf="f['fromDate'].touched && f['fromDate'].errors?.['invalidSickDate']">
+              <small
+                class="text-red-600 text-sm mt-1 flex items-center gap-1"
+                *ngIf="f['fromDate'].touched && f['fromDate'].errors?.['invalidSickDate']"
+              >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                    clip-rule="evenodd"
+                  ></path>
                 </svg>
                 Sick leave can only be applied for today.
               </small>
-              <small class="text-red-600 text-sm mt-1 flex items-center gap-1" *ngIf="f['fromDate'].touched && f['fromDate'].errors?.['pastCasualDate']">
+              <small
+                class="text-red-600 text-sm mt-1 flex items-center gap-1"
+                *ngIf="f['fromDate'].touched && f['fromDate'].errors?.['pastCasualDate']"
+              >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                    clip-rule="evenodd"
+                  ></path>
                 </svg>
                 Casual leave cannot start in the past.
               </small>
@@ -125,8 +213,18 @@
 
             <div>
               <label class="block mb-2 font-semibold text-gray-700 flex items-center gap-2">
-                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                <svg
+                  class="w-5 h-5 text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  ></path>
                 </svg>
                 To Date
               </label>
@@ -136,15 +234,29 @@
                 [attr.min]="f['type'].value === 'Sick' ? today : f['fromDate'].value || today"
                 class="border-2 border-gray-300 rounded-xl px-4 py-3 w-full focus:ring-2 focus:ring-blue-400 focus:border-blue-400 focus:outline-none transition-all duration-200"
               />
-              <small class="text-red-600 text-sm mt-1 flex items-center gap-1" *ngIf="f['toDate'].touched && f['toDate'].errors?.['required']">
+              <small
+                class="text-red-600 text-sm mt-1 flex items-center gap-1"
+                *ngIf="f['toDate'].touched && f['toDate'].errors?.['required']"
+              >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                    clip-rule="evenodd"
+                  ></path>
                 </svg>
                 To date is required.
               </small>
-              <small class="text-red-600 text-sm mt-1 flex items-center gap-1" *ngIf="f['toDate'].touched && f['toDate'].errors?.['dateRange']">
+              <small
+                class="text-red-600 text-sm mt-1 flex items-center gap-1"
+                *ngIf="f['toDate'].touched && f['toDate'].errors?.['dateRange']"
+              >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                    clip-rule="evenodd"
+                  ></path>
                 </svg>
                 To date must be equal or after From date.
               </small>
@@ -154,8 +266,18 @@
           <!-- Reason -->
           <div>
             <label class="block mb-2 font-semibold text-gray-700 flex items-center gap-2">
-              <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+              <svg
+                class="w-5 h-5 text-gray-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                ></path>
               </svg>
               Reason
             </label>
@@ -165,15 +287,29 @@
               placeholder="Please provide a brief reason for your leave..."
               class="border-2 border-gray-300 rounded-xl px-4 py-3 w-full focus:ring-2 focus:ring-blue-400 focus:border-blue-400 focus:outline-none transition-all duration-200 resize-none"
             ></textarea>
-            <small class="text-red-600 text-sm mt-1 flex items-center gap-1" *ngIf="f['reason'].touched && f['reason'].errors?.['required']">
+            <small
+              class="text-red-600 text-sm mt-1 flex items-center gap-1"
+              *ngIf="f['reason'].touched && f['reason'].errors?.['required']"
+            >
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clip-rule="evenodd"
+                ></path>
               </svg>
               Reason is required.
             </small>
-            <small class="text-red-600 text-sm mt-1 flex items-center gap-1" *ngIf="f['reason'].touched && f['reason'].errors?.['minlength']">
+            <small
+              class="text-red-600 text-sm mt-1 flex items-center gap-1"
+              *ngIf="f['reason'].touched && f['reason'].errors?.['minlength']"
+            >
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clip-rule="evenodd"
+                ></path>
               </svg>
               Reason must be at least 5 characters.
             </small>
@@ -185,7 +321,12 @@
             class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 font-semibold text-lg shadow-lg hover:shadow-xl disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed disabled:opacity-60 flex items-center justify-center gap-2"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
             </svg>
             Submit Application
           </button>
@@ -194,11 +335,19 @@
     </div>
 
     <!-- Leave List -->
-    <div *ngIf="!showForm" class="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200">
+    <div
+      *ngIf="!showForm"
+      class="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200"
+    >
       <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
         <h3 class="text-xl font-semibold text-white flex items-center gap-2">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+            ></path>
           </svg>
           Applied Leaves
         </h3>
@@ -214,9 +363,21 @@
               <div class="flex-1">
                 <div class="flex flex-wrap items-center gap-3 mb-3">
                   <div class="flex items-center gap-2">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
-                      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    <div
+                      class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-6 h-6 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        ></path>
                       </svg>
                     </div>
                     <span class="font-bold text-gray-900 text-lg">{{ leave.type }} Leave</span>
@@ -225,34 +386,57 @@
                     [ngClass]="{
                       'bg-yellow-100 text-yellow-700 border-yellow-300': leave.status === 'Pending',
                       'bg-green-100 text-green-700 border-green-300': leave.status === 'Approved',
-                      'bg-red-100 text-red-700 border-red-300': leave.status === 'Rejected'
+                      'bg-red-100 text-red-700 border-red-300': leave.status === 'Rejected',
                     }"
                     class="text-sm font-semibold px-3 py-1 rounded-full border inline-flex items-center gap-1"
                   >
-                    <span class="w-2 h-2 rounded-full" [ngClass]="{
-                      'bg-yellow-500': leave.status === 'Pending',
-                      'bg-green-500': leave.status === 'Approved',
-                      'bg-red-500': leave.status === 'Rejected'
-                    }"></span>
+                    <span
+                      class="w-2 h-2 rounded-full"
+                      [ngClass]="{
+                        'bg-yellow-500': leave.status === 'Pending',
+                        'bg-green-500': leave.status === 'Approved',
+                        'bg-red-500': leave.status === 'Rejected',
+                      }"
+                    ></span>
                     {{ leave.status }}
                   </span>
                 </div>
-                
+
                 <div class="flex items-center gap-2 text-gray-700 mb-2">
-                  <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  <svg
+                    class="w-5 h-5 text-gray-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    ></path>
                   </svg>
                   <span class="font-medium">
-                    {{ leave.fromDate | date:'dd-MMM-yyyy' }}
+                    {{ leave.fromDate | date: 'dd-MMM-yyyy' }}
                     <span *ngIf="leave.toDate !== leave.fromDate">
-                      to {{ leave.toDate | date:'dd-MMM-yyyy' }}
+                      to {{ leave.toDate | date: 'dd-MMM-yyyy' }}
                     </span>
                   </span>
                 </div>
-                
+
                 <div class="flex items-start gap-2 text-gray-600">
-                  <svg class="w-5 h-5 text-gray-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  <svg
+                    class="w-5 h-5 text-gray-500 mt-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    ></path>
                   </svg>
                   <span>{{ leave.reason }}</span>
                 </div>
@@ -262,9 +446,21 @@
         </div>
 
         <div *ngIf="leaves.length === 0" class="text-center py-12">
-          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-            <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          <div
+            class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center"
+          >
+            <svg
+              class="w-10 h-10 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
             </svg>
           </div>
           <p class="text-gray-500 text-lg font-medium">No leaves applied yet</p>

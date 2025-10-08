@@ -22,7 +22,9 @@ export class LeaveManagement implements OnInit {
   }
 
   toggleAccordion(leaveId: number) {
-    this.expandedLeaves.has(leaveId) ? this.expandedLeaves.delete(leaveId) : this.expandedLeaves.add(leaveId);
+    this.expandedLeaves.has(leaveId)
+      ? this.expandedLeaves.delete(leaveId)
+      : this.expandedLeaves.add(leaveId);
   }
 
   isExpanded(leaveId: number) {

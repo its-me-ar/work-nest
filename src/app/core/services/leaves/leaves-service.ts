@@ -9,7 +9,10 @@ export class LeavesService {
   private api = `${environment.apiUrl}/leaves`;
   private leavesSignal = signal<Leave[]>([]);
 
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(
+    private http: HttpClient,
+    private userService: UserService,
+  ) {}
 
   loadLeaves() {
     const userId = this.userService.user()?.id;
@@ -22,19 +25,18 @@ export class LeavesService {
     return this.leavesSignal();
   }
 
-applyLeave(data: Omit<Leave, 'id' | 'status' | 'userId'>) {
-  const userId = this.userService.user()?.id;
-  if (!userId) return;
+  applyLeave(data: Omit<Leave, 'id' | 'status' | 'userId'>) {
+    const userId = this.userService.user()?.id;
+    if (!userId) return;
 
-  const leave: Omit<Leave, 'id'> = {
-    ...data,
-    status: 'Pending', // default
-    userId,
-  };
+    const leave: Omit<Leave, 'id'> = {
+      ...data,
+      status: 'Pending', // default
+      userId,
+    };
 
-  this.http.post<Leave>(this.api, leave).subscribe((l) => {
-    this.leavesSignal.update((leaves) => [...leaves, l]);
-  });
-}
-
+    this.http.post<Leave>(this.api, leave).subscribe((l) => {
+      this.leavesSignal.update((leaves) => [...leaves, l]);
+    });
+  }
 }

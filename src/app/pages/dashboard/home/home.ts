@@ -23,20 +23,20 @@ export class Home {
   taskChartData = signal<ChartData<'doughnut'>>({
     labels: ['Completed', 'Pending'],
     datasets: [
-      { 
+      {
         data: [0, 0],
         backgroundColor: ['#16a34a', '#facc15'],
-      }
+      },
     ],
   });
 
   leaveChartData = signal<ChartData<'doughnut'>>({
     labels: ['Approved', 'Pending'],
     datasets: [
-      { 
+      {
         data: [0, 0],
         backgroundColor: ['#3b82f6', '#ef4444'],
-      }
+      },
     ],
   });
 
@@ -45,7 +45,7 @@ export class Home {
 
   constructor(
     private taskService: TaskService,
-    private leavesService: LeavesService
+    private leavesService: LeavesService,
   ) {
     this.leavesService.loadLeaves();
 
@@ -61,10 +61,10 @@ export class Home {
       this.taskChartData.set({
         labels: ['Completed', 'Pending'],
         datasets: [
-          { 
+          {
             data: [completed, pending],
             backgroundColor: ['#16a34a', '#facc15'],
-          }
+          },
         ],
       });
 
@@ -78,10 +78,10 @@ export class Home {
       this.leaveChartData.set({
         labels: ['Approved', 'Pending'],
         datasets: [
-          { 
+          {
             data: [approved, pendingLeaves],
             backgroundColor: ['#3b82f6', '#ef4444'],
-          }
+          },
         ],
       });
     });
