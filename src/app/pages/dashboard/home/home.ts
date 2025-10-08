@@ -1,4 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, effect, signal, OnDestroy } from '@angular/core';
 import { TaskService } from '../../../core/services/tasks/tasks-service';
 import { LeavesService } from '../../../core/services/leaves/leaves-service';
 import { ChartData, ChartOptions } from 'chart.js';
@@ -10,8 +10,7 @@ import { BaseChartDirective } from 'ng2-charts';
   imports: [BaseChartDirective],
   templateUrl: './home.html',
 })
-export class Home {
-  // Task stats
+export class Home implements OnDestroy {
   totalCompleted = signal(0);
   totalPending = signal(0);
 
@@ -19,7 +18,7 @@ export class Home {
   leavesApproved = signal(0);
   leavesPending = signal(0);
 
-  // Chart Data (as signals so they update reactively)
+  // Chart Data
   taskChartData = signal<ChartData<'doughnut'>>({
     labels: ['Completed', 'Pending'],
     datasets: [
@@ -49,9 +48,7 @@ export class Home {
   ) {
     this.leavesService.loadLeaves();
 
-    // Reactive effect for tasks & leaves
     effect(() => {
-      // ✅ Tasks
       const tasks = this.taskService.filteredTasks();
       const completed = tasks.filter((t) => t.completed).length;
       const pending = tasks.filter((t) => !t.completed).length;
@@ -68,7 +65,6 @@ export class Home {
         ],
       });
 
-      // ✅ Leaves
       const leaves = this.leavesService.leaves();
       const approved = leaves.filter((l) => l.status === 'Approved').length;
       const pendingLeaves = leaves.filter((l) => l.status === 'Pending').length;
