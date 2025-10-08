@@ -1,59 +1,81 @@
 # WorkNest
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
+WorkNest is an Angular application focused on workplace task and leave management with authentication, toasts, and server entry code (SSR-ready files present).
 
-## Development server
+## 🚀 Features
 
-To start a local development server, run:
+### Core
+- Email/password authentication (login via `AuthService`, persisted user via `UserService`)
+- User-specific task management: add, update, delete, toggle complete, filter (all/completed/pending)
+- Leave management (admin view): load leaves, approve, reject with reason (modal)
+- Toast notifications for user feedback
+- Server-side entrypoints present (`src/server.ts`, `src/main.server.ts`) — SSR-ready
 
-```bash
-ng serve
+### Technical
+- Uses Angular standalone components and Angular signals for state
+- REST API-driven: expects `/users`, `/tasks`, `/leaves` endpoints
+
+## 🛠️ Tech Stack
+- Frontend: Angular (standalone components)
+- State: Angular signals (computed + signal)
+- HTTP: Angular HttpClient
+- Testing: Jasmine/Karma-style unit specs present
+- SSR: Node/Express server entrypoint (`src/server.ts`)
+
+## 📁 Project structure (high level)
+
+```
+src/
+├── app/
+│   ├── components/         # Header, Sidebar, Toast, Leaves modal
+│   ├── core/
+│   │   ├── services/       # AuthService, UserService, TaskService, LeaveManagementService, ToastService, StorageService, UiStateService
+│   │   └── models/         # user.model.ts, task.model.ts, leave.model.ts
+│   └── pages/              # login, dashboard (leave-management, tasks, etc.)
+├── environments/           # environment.ts, environment.prod.ts
+├── main.ts                  # client bootstrap
+├── main.server.ts           # server bootstrap (SSR)
+└── server.ts                # Express server for SSR
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🔗 API (expected)
 
-## Code scaffolding
+Base URL: `environment.apiUrl` (dev: `http://localhost:3000`, prod: `https://json-server-h1vo.onrender.com`)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Common endpoints used by the code:
+- `GET /users` (login lookup by email+password)
+- `GET /tasks?userId=<id>` (load tasks for user)
+- `POST /tasks` (create task)
+- `PUT /tasks/:id` (update task)
+- `DELETE /tasks/:id` (delete task)
+- `GET /leaves` (load leaves)
+- `PATCH /leaves/:id` (approve/reject leave)
 
-```bash
-ng generate component component-name
-```
+## ✅ Scripts (run with npm)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- `npm start` / `ng serve` — dev server
+- `npm run build` — build production bundle
+- `npm test` — run unit tests
+- `npm run e2e` — run e2e tests (if configured)
 
-```bash
-ng generate --help
-```
+Check `package.json` for exact script names.
 
-## Building
+## 📱 Pages (what's in the app)
 
-To build the project run:
+- `/login` — login page (reactive form, validation, server auth)
+- `/` — dashboard layout (header + sidebar)
+	- `/dashboard/tasks` — tasks CRUD & filtering
+	- `/dashboard/leave-management` — admin leaves list, approve/reject
 
-```bash
-ng build
-```
+## 🧪 Tests
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Unit tests exist for key pages/components (`*.spec.ts`). They use TestBed with mocks for services.
 
-## Running unit tests
+## ⚠️ Notes
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- The app reads and writes user/token via `StorageService` cookies used by `UserService`.
+- Environment `apiUrl` controls backend endpoints; adjust `src/environment/environment.ts` for local API.
 
-```bash
-ng test
-```
+## 📞 Want format changes?
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+If you want a full README in the exact layout you pasted (sections like Tech Stack, Project Structure, Getting Started, Env vars table, API endpoints table), tell me and I'll update `README.md` accordingly.
