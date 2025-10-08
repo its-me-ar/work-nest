@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test --watch=false --browsers=ChromeHeadless --code-coverage",
     "serve:ssr:work-nest": "node dist/work-nest/server/server.mjs",
     "format": "prettier --write \"src/**/*.{ts,html,css,scss,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,html,css,scss,json,md}\"",
@@ -43,7 +43,8 @@
     "postcss": "^8.5.6",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.13",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zone.js": "^0.15.1"
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "^20.3.0",
