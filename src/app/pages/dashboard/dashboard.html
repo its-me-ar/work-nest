@@ -1,6 +1,6 @@
 <div class="flex h-screen bg-gray-50">
   <!-- Mobile Overlay -->
- <div
+  <div
     *ngIf="ui.isMobileMenuOpen$ | async"
     class="fixed inset-0 bg-gray-300 bg-opacity-50 z-40 lg:hidden"
     (click)="ui.toggleMobileMenu()"

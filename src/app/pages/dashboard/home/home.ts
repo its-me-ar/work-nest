@@ -1,4 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, effect, signal, OnDestroy } from '@angular/core';
 import { TaskService } from '../../../core/services/tasks/tasks-service';
 import { LeavesService } from '../../../core/services/leaves/leaves-service';
 import { ChartData, ChartOptions } from 'chart.js';
@@ -10,8 +10,7 @@ import { BaseChartDirective } from 'ng2-charts';
   imports: [BaseChartDirective],
   templateUrl: './home.html',
 })
-export class Home {
-  // Task stats
+export class Home implements OnDestroy {
   totalCompleted = signal(0);
   totalPending = signal(0);
 
@@ -19,24 +18,24 @@ export class Home {
   leavesApproved = signal(0);
   leavesPending = signal(0);
 
-  // Chart Data (as signals so they update reactively)
+  // Chart Data
   taskChartData = signal<ChartData<'doughnut'>>({
     labels: ['Completed', 'Pending'],
     datasets: [
-      { 
+      {
         data: [0, 0],
         backgroundColor: ['#16a34a', '#facc15'],
-      }
+      },
     ],
   });
 
   leaveChartData = signal<ChartData<'doughnut'>>({
     labels: ['Approved', 'Pending'],
     datasets: [
-      { 
+      {
         data: [0, 0],
         backgroundColor: ['#3b82f6', '#ef4444'],
-      }
+      },
     ],
   });
 
@@ -45,13 +44,11 @@ export class Home {
 
   constructor(
     private taskService: TaskService,
-    private leavesService: LeavesService
+    private leavesService: LeavesService,
   ) {
     this.leavesService.loadLeaves();
 
-    // Reactive effect for tasks & leaves
     effect(() => {
-      // ✅ Tasks
       const tasks = this.taskService.filteredTasks();
       const completed = tasks.filter((t) => t.completed).length;
       const pending = tasks.filter((t) => !t.completed).length;
@@ -61,14 +58,13 @@ export class Home {
       this.taskChartData.set({
         labels: ['Completed', 'Pending'],
         datasets: [
-          { 
+          {
             data: [completed, pending],
             backgroundColor: ['#16a34a', '#facc15'],
-          }
+          },
         ],
       });
 
-      // ✅ Leaves
       const leaves = this.leavesService.leaves();
       const approved = leaves.filter((l) => l.status === 'Approved').length;
       const pendingLeaves = leaves.filter((l) => l.status === 'Pending').length;
@@ -78,10 +74,10 @@ export class Home {
       this.leaveChartData.set({
         labels: ['Approved', 'Pending'],
         datasets: [
-          { 
+          {
             data: [approved, pendingLeaves],
             backgroundColor: ['#3b82f6', '#ef4444'],
-          }
+          },
         ],
       });
     });

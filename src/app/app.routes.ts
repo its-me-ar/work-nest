@@ -26,7 +26,7 @@ export const routes: Routes = [
         data: { roles: ['admin'] }, // only admins allowed
         loadComponent: () =>
           import('./pages/dashboard/leave-management/leave-management').then(
-            (m) => m.LeaveManagement
+            (m) => m.LeaveManagement,
           ),
       },
     ],

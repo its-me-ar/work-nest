@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup, ValidationErrors } from "@angular/forms";
+import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 
 // ✅ Custom validator → From date cannot be in the past
 export function futureDateValidator(control: AbstractControl): ValidationErrors | null {
@@ -8,7 +8,6 @@ export function futureDateValidator(control: AbstractControl): ValidationErrors 
   const selected = new Date(control.value);
   return selected < today ? { pastDate: true } : null;
 }
-
 
 // ✅ Helper to normalize dates (ignore time)
 export function normalizeDate(date: Date): number {

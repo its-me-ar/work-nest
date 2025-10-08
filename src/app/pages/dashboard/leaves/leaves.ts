@@ -1,16 +1,10 @@
 // leaves.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  ReactiveFormsModule,
-  FormBuilder,
-  Validators,
-  FormGroup,
-} from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { LeavesService } from '../../../core/services/leaves/leaves-service';
 import { ToastService } from '../../../core/services/toast/toast-service';
 import { leaveDateValidator, normalizeDate, toDateValidator } from '../../../utils/helper';
-
 
 @Component({
   selector: 'app-leaves',
@@ -26,7 +20,7 @@ export class Leaves implements OnInit {
   constructor(
     private fb: FormBuilder,
     private leaveService: LeavesService,
-    private toast: ToastService
+    private toast: ToastService,
   ) {}
 
   ngOnInit() {

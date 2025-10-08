@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LucideAngularModule, PanelRight,SearchIcon,BellIcon} from 'lucide-angular';
+import { LucideAngularModule, PanelRight, SearchIcon, BellIcon } from 'lucide-angular';
 import { UiStateService } from '../../core/services/ui-state.service';
 
 @Component({
@@ -12,5 +12,4 @@ export class Header {
   readonly PanelRight = PanelRight;
   readonly SearchIcon = SearchIcon;
   readonly BellIcon = BellIcon;
-
 }

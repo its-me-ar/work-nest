@@ -8,9 +8,8 @@ describe('RejectReasonModal', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RejectReasonModal]
-    })
-    .compileComponents();
+      imports: [RejectReasonModal],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RejectReasonModal);
     component = fixture.componentInstance;

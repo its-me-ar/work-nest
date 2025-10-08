@@ -9,17 +9,22 @@ import { environment } from '../../../../environment/environment';
 export class AuthService {
   private api = environment.apiUrl;
 
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(
+    private http: HttpClient,
+    private userService: UserService,
+  ) {}
 
   login(email: string, password: string): Observable<User | null> {
-    return this.http.get<User[]>(`${this.api}/users`, {
-      params: { email, password }
-    }).pipe(
-      map(users => users[0] || null), // pick first matching user
-      tap(user => {
-        if (user) this.userService.setUser(user);
+    return this.http
+      .get<User[]>(`${this.api}/users`, {
+        params: { email, password },
       })
-    );
+      .pipe(
+        map((users) => users[0] || null), // pick first matching user
+        tap((user) => {
+          if (user) this.userService.setUser(user);
+        }),
+      );
   }
 
   logout() {

@@ -10,16 +10,17 @@ export class LeaveManagementService {
   private usersApi = `${environment.apiUrl}/users`;
   private leavesSignal = signal<LeaveWithUser[]>([]);
 
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(
+    private http: HttpClient,
+    private userService: UserService,
+  ) {}
 
   /** Load all leaves for admin excluding admin's own leaves and attach user info */
   loadLeaves() {
     const adminId = Number(this.userService.user()?.id); // convert to number
 
     this.http.get<Leave[]>(`${this.api}`).subscribe((leaves) => {
-
       this.http.get<any[]>(`${this.usersApi}`).subscribe((users) => {
-
         const filtered = leaves
           .filter((l) => Number(l.userId) !== adminId) // convert userId to number
           .map((l) => {
@@ -53,7 +54,7 @@ export class LeaveManagementService {
   private updateLeaveStatus(
     leaveId: number,
     status: 'Approved' | 'Rejected',
-    rejectReason?: string
+    rejectReason?: string,
   ) {
     const leave = this.leavesSignal().find((l) => l.id === leaveId);
     if (!leave) return;
@@ -64,7 +65,7 @@ export class LeaveManagementService {
     this.http.patch<Leave>(`${this.api}/${leaveId}`, payload).subscribe((updated) => {
       // update local signal
       this.leavesSignal.set(
-        this.leavesSignal().map((l) => (l.id === leaveId ? { ...l, ...updated } : l))
+        this.leavesSignal().map((l) => (l.id === leaveId ? { ...l, ...updated } : l)),
       );
     });
   }
